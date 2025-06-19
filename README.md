@@ -57,4 +57,4 @@ Navigate through the submenus and input values as prompted.
 
 ## License
 
-This project is released under the MIT [License](https://github.com/ofmiq/MathToolkit/blob/main/LICENSE). See LICENSE for details.
+This project is released under the MIT License. See [LICENSE](https://github.com/ofmiq/MathToolkit/blob/main/LICENSE) for details.
