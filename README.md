@@ -7,6 +7,7 @@ A command-line C application for performing common mathematical operations, incl
 - Power and root operations
 - Factorial calculation
 - Combinatorics
+- Planimetrics
 
 ## Requirements
 
@@ -45,12 +46,13 @@ You'll see an interactive menu like:
 
 ```
 === Math Toolkit ===
-1. Trigonometric functions (sin, cos, tan)
-2. Exponential and logarithm
-3. Powers and roots
+1. Trigonometry
+2. Exponential & Log
+3. Powers & Roots
 4. Factorial
-5. Combinations / Permutations
-6. Exit
+5. Combinatorics
+6. Planimetrics
+7. Exit
 ```
 
 Navigate through the submenus and input values as prompted.
