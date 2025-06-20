@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <inttypes.h>
 
 /**
  * @brief Computes the factorial of a non-negative integer.
@@ -29,9 +30,7 @@ uint64_t permutations(int n, int r);
 uint64_t combinations(int n, int r);
 
 /**
- * @brief Safely performs multiplication and division to prevent uint64_t
- overflow.
-
+ * @brief Safely performs multiplication and division to prevent uint64_t overflow.
  * @param acc Pointer to accumulator variable.
  * @param mul Multiplicand.
  * @param div Divisor.

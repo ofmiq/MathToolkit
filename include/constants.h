@@ -4,6 +4,6 @@
 #define PI 3.14159265358979323846
 #define TAN_EPSILON 1e-9
 #define MAX_FACTORIAL_INPUT 20
-#define MAX_LINE_LEN 64
+#define MAX_LINE_LEN 8
 
 #endif

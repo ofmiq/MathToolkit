@@ -1,10 +1,7 @@
-#define _USE_MATH_DEFINES
 #include "menus.h"
 
-#include <inttypes.h>
 #include <math.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 #include "constants.h"
 #include "input.h"
@@ -18,7 +15,8 @@ bool run(void) {
       "3) Powers & Roots\n"
       "4) Factorial\n"
       "5) Combinatorics\n"
-      "6) Exit\n"
+      "6) Planimetrics\n"
+      "7) Exit\n"
       "Select: ");
   int choice;
   if (!read_int("", &choice)) {
@@ -43,6 +41,9 @@ bool run(void) {
       handle_combinatorics();
       break;
     case 6:
+      handle_planimetrics();
+      break;
+    case 7:
       return false;
     default:
       printf("Invalid selection.\n");
@@ -65,7 +66,7 @@ void handle_trigonometry(void) {
         "Select: ");
 
     int choice;
-    if (!read_int("", &choice)) {
+    if (!read_int("", &choice) || (choice < 1 || choice > 7)) {
       printf("Invalid selection.\n");
       continue;
     }
@@ -75,11 +76,9 @@ void handle_trigonometry(void) {
     }
 
     double x, res;
-    if (choice >= 1 && choice <= 6) {
-      if (!read_double("Enter value: ", &x)) {
-        printf("Invalid number.\n");
-        continue;
-      }
+    if (!read_double("Enter value: ", &x)) {
+      printf("Invalid number.\n");
+      continue;
     }
 
     switch (choice) {
@@ -122,7 +121,7 @@ void handle_trigonometry(void) {
         printf("arctan(%.4f) = %.6f°\n", x, res);
         break;
       default:
-        printf("Invalid selection.\n");
+        break;
     }
   }
 }
@@ -138,7 +137,7 @@ void handle_exponential(void) {
         "Select: ");
 
     int choice;
-    if (!read_int("", &choice)) {
+    if (!read_int("", &choice) || (choice < 1 || choice > 4)) {
       printf("Invalid selection.\n");
       continue;
     }
@@ -172,7 +171,7 @@ void handle_exponential(void) {
         }
         break;
       default:
-        printf("Invalid selection.\n");
+        break;
     }
   }
 }
@@ -188,7 +187,7 @@ void handle_powers(void) {
         "Select: ");
 
     int choice;
-    if (!read_int("", &choice)) {
+    if (!read_int("", &choice) || (choice < 1 || choice > 4)) {
       printf("Invalid selection.\n");
       continue;
     }
@@ -224,7 +223,7 @@ void handle_powers(void) {
         }
         break;
       default:
-        printf("Invalid selection.\n");
+        break;
     }
   }
 }
@@ -254,7 +253,7 @@ void handle_combinatorics(void) {
         "Select: ");
 
     int choice;
-    if (!read_int("", &choice)) {
+    if (!read_int("", &choice) || (choice < 1 || choice > 3)) {
       printf("Invalid selection.\n");
       continue;
     }
@@ -272,18 +271,151 @@ void handle_combinatorics(void) {
       continue;
     }
 
-    if (choice == 1) {
-      uint64_t c = combinations(n, r);
-      if (c == 0) {
-        printf("Result overflow or invalid.\n");
-      } else {
-        printf("C(%d, %d) = %" PRIu64 "\n", n, r, c);
-      }
-    } else if (choice == 2) {
-      uint64_t p = permutations(n, r);
-      printf("P(%d, %d) = %" PRIu64 "\n", n, r, p);
-    } else {
+    switch (choice) {
+      case 1:
+        uint64_t c = combinations(n, r);
+        if (c == 0) {
+          printf("Result overflow or invalid.\n");
+        } else {
+          printf("C(%d, %d) = %" PRIu64 "\n", n, r, c);
+        }
+        break;
+      case 2:
+        uint64_t p = permutations(n, r);
+        printf("P(%d, %d) = %" PRIu64 "\n", n, r, p);
+        break;
+      default:
+        break;
+    }
+  }
+}
+
+void handle_planimetrics(void) {
+  while (1) {
+    printf(
+        "\n--- Planimetrics ---\n"
+        "1) Perimeter of Square\n"
+        "2) Area of Square\n"
+        "3) Perimeter of Rectangle\n"
+        "4) Area of Rectangle\n"
+        "5) Perimeter of Triangle\n"
+        "6) Area of Triangle\n"
+        "7) Perimeter of Parallelogram\n"
+        "8) Area of Parallelogram\n"
+        "9) Perimeter of Circle\n"
+        "10) Area of Circle\n"
+        "11) Back\n"
+        "Select: ");
+
+    int choice;
+    if (!read_int("", &choice) || (choice < 1 || choice > 11)) {
       printf("Invalid selection.\n");
+      continue;
+    }
+    if (choice == 11) {
+      return;
+    }
+
+    double a, b, c, area, perim;
+
+    switch (choice) {
+      case 1:
+        if (!read_double("Enter side length: ", &a)) {
+          printf("Invalid number.\n");
+        } else {
+          perim = 4 * a;
+          printf("Perimeter of Square = %.6f\n", perim);
+        }
+        break;
+      case 2:
+        if (!read_double("Enter side length: ", &a)) {
+          printf("Invalid number.\n");
+        } else {
+          area = a * a;
+          printf("Area of Square = %.6f\n", area);
+        }
+        break;
+      case 3:
+        if (!read_double("Enter width: ", &a) ||
+            !read_double("Enter height: ", &b)) {
+          printf("Invalid numbers.\n");
+        } else {
+          perim = 2 * (a + b);
+          printf("Perimeter of Rectangle = %.6f\n", perim);
+        }
+        break;
+      case 4:
+        if (!read_double("Enter width: ", &a) ||
+            !read_double("Enter height: ", &b)) {
+          printf("Invalid numbers.\n");
+        } else {
+          area = a * b;
+          printf("Area of Rectangle = %.6f\n", area);
+        }
+        break;
+      case 5:
+        if (!read_double("Enter side A: ", &a) ||
+            !read_double("Enter side B: ", &b) ||
+            !read_double("Enter side C: ", &c)) {
+          printf("Invalid numbers.\n");
+        } else {
+          perim = a + b + c;
+          printf("Perimeter of Triangle = %.6f\n", perim);
+        }
+        break;
+      case 6:
+        if (!read_double("Enter side A: ", &a) ||
+            !read_double("Enter side B: ", &b) ||
+            !read_double("Enter side C: ", &c)) {
+          printf("Invalid numbers.\n");
+        } else {
+          double s = (a + b + c) / 2.0;
+          if (s <= a || s <= b || s <= c || a <= 0 || b <= 0 || c <= 0) {
+            printf(
+                "Invalid triangle sides. Sides must be positive and satisfy "
+                "triangle inequality.\n");
+          } else {
+            area = sqrt(s * (s - a) * (s - b) * (s - c));
+            printf("Area of Triangle = %.6f\n", area);
+          }
+        }
+        break;
+      case 7:
+        if (!read_double("Enter base: ", &a) ||
+            !read_double("Enter side: ", &b)) {
+          printf("Invalid numbers.\n");
+        } else {
+          perim = 2 * (a + b);
+          printf("Perimeter of Parallelogram = %.6f\n", perim);
+        }
+        break;
+      case 8:
+        if (!read_double("Enter base: ", &a) ||
+            !read_double("Enter height: ", &b)) {
+          printf("Invalid numbers.\n");
+        } else {
+          area = a * b;
+          printf("Area of Parallelogram = %.6f\n", area);
+        }
+        break;
+      case 9:
+        if (!read_double("Enter radius: ", &a)) {
+          printf("Invalid number.\n");
+        } else {
+          perim = 2 * PI * a;
+          printf("Circumference of Circle = %.6f\n", perim);
+        }
+        break;
+      case 10:
+        if (!read_double("Enter radius: ", &a)) {
+          printf("Invalid number.\n");
+        } else {
+          area = PI * a * a;
+          printf("Area of Circle = %.6f\n", area);
+        }
+        break;
+      default:
+        break;
     }
   }
 }

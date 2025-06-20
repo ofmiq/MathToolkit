@@ -34,4 +34,9 @@ void handle_factorial(void);
  */
 void handle_combinatorics(void);
 
+/**
+ * @brief Displays and manages the Planimetrics submenu.
+ */
+void handle_planimetrics(void);
+
 #endif
